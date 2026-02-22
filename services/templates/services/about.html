@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+
+   <!-- Hero Section -->
+    <section class="hero-section bg-light py-5 text-center rounded-lg shadow-sm mb-5" style="background-color: #e0e0e0;">
+        <h1 class="display-4 mb-3 text-dark font-weight-bold">About Swift Cart</h1>
+        <p class="lead mb-4 text-muted font-weight-bold">Your ultimate online shopping destination, connecting vendors and customers seamlessly.</p>
+    </section>
+
+
+    <!-- Introduction Section -->
+    <section class="mt-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h2 class="text-dark font-weight-bold mb-3">Our Mission</h2>
+                <p class="text-muted">
+                    At Swift Cart, we aim to create a platform where businesses and customers come together. Vendors can showcase their products, and customers can easily find what they need, all within an intuitive and user-friendly environment.
+                </p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="{% static 'images/hands.jpg' %}" alt="Our Mission" class="img-fluid profile-image-pic img-thumbnail rounded-circle shadow-lg" width='250px'>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="feature-section mt-5">
+        <h2 class="text-center mb-4 text-dark font-weight-bold">Why Choose Swift Cart?</h2>
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <i class="bi bi-shop fs-2 mb-3 text-success"></i>
+                <h5 class="font-weight-bold">For Vendors</h5>
+                <p>Upload your products, connect with customers, and grow your business effortlessly.</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <i class="bi bi-cart-check fs-2 mb-3 text-warning"></i>
+                <h5 class="font-weight-bold">For Customers</h5>
+                <p>Search for products, compare options, and make purchases securely and conveniently.</p>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <i class="bi bi-lightning fs-2 mb-3 text-info"></i>
+                <h5 class="font-weight-bold">Fast & Intuitive</h5>
+                <p>Enjoy a platform designed for speed, efficiency, and a seamless shopping experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="text-center bg-dark text-white py-5 mt-5 rounded-lg shadow-sm">
+        <h3 class="display-4 mb-3 text-light font-weight-bold">Join Swift Cart Today</h3>
+        <p class="lead mb-4 text-light">Whether you're a vendor or a customer, Swift Cart is the place to be!</p>
+        <a href="{% url 'signup' %}" class="btn btn-light btn-lg px-4 py-3">Sign Up Now</a>
+    </section>
+
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+<!-- newsletter_signup.html (inside your templates/services folder) -->
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Stay Updated</h2>
+    <p>Sign up for our newsletter to get the latest deals and products delivered to your inbox.</p>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+</div>
+{% endblock %}

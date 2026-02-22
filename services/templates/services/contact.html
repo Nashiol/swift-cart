@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <section class="text-center bg-light py-5 rounded">
+        <h1 class="mb-3">Contact Us</h1>
+        <p class="lead">We’re here to help! Reach out with any questions, feedback, or support needs.</p>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="mt-5">
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <i class="bi bi-envelope fs-1 mb-3"></i>
+                <h5>Email Us</h5>
+                <p>support@swiftcart.com</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-telephone fs-1 mb-3"></i>
+                <h5>Call Us</h5>
+                <p>+260 9743 96 754</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="bi bi-geo-alt fs-1 mb-3"></i>
+                <h5>Visit Us</h5>
+                <p>123 Swift Cart Street, Shopping City</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="mt-5">
+        <h2 class="text-center mb-4">Send Us a Message</h2>
+        <form method="post" action="{% url 'services:contact' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Your Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Your Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Social Media Section -->
+    <section class="text-center mt-5">
+        <h2>Follow Us</h2>
+        <div class="d-flex justify-content-center">
+            <a href="https://facebook.com/swiftcart" class="text-dark mx-3"><i class="bi bi-facebook fs-1"></i></a>
+            <a href="https://twitter.com/swiftcart" class="text-dark mx-3"><i class="bi bi-twitter fs-1"></i></a>
+            <a href="https://instagram.com/swiftcart" class="text-dark mx-3"><i class="bi bi-instagram fs-1"></i></a>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,63 @@
+<!-- templates/users/login.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card my-5 shadow-lg custom-card">
+                <form class="card-body p-4 p-lg-5" action="{% url 'login' %}" method="POST">
+                    {% csrf_token %}
+                    <h2 class="text-center mb-4" style="color: #1a1a1a;">Welcome Back!</h2>
+
+                    <div class="text-center mb-4">
+                        <img src="{% static 'images/login.png' %}" 
+                             class="img-fluid profile-image-pic img-thumbnail rounded-circle shadow-sm" 
+                             width="150px" alt="profile" />
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control border-0" 
+                               name="username" placeholder="Enter your email" required 
+                               style="border-radius: 8px; padding: 0.75rem;"/>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" class="form-control border-0" 
+                               placeholder="Enter your password" name="password" required 
+                               style="border-radius: 8px; padding: 0.75rem;"/>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn mb-3" style="background-color: #2a5298; color: white; border: none;">
+                            Login
+                        </button>
+                    </div>                    
+
+                    <div class="text-center text-dark">
+                        <p class="mb-1">Not Registered?</p>
+                        <a href="{% url 'customer-signup' %}" class="btn btn-dark fw-bold d-block text-decoration-none mb-2">
+                            Create Customer Account
+                        </a>
+                        <span class="d-block my-2">or</span>
+                        <a href="{% url 'vendor-signup' %}" class="btn btn-dark fw-bold text-decoration-none">
+                            Become a Vendor
+                        </a>
+                    </div>                    
+                </form>
+                <div class="text-center mt-4">
+                    <span class="d-block text-light mb-2">or</span>
+                    <a href="{% provider_login_url 'google' %}" class="btn btn-light w-100 text-dark shadow-sm"
+                       style="border-radius: 8px;">
+                        <img src="{% static 'images/google.jpg' %}" alt="Google Logo" width="20" 
+                             class="me-2"> Sign in with Google
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

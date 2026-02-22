@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-header py-5 text-center text-white" style="background: linear-gradient(135deg, #6e8efb, #a777e3);">
+    <div class="container">
+        <div class="profile-img mb-3">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover; border: 5px solid white;">
+            {% else %}
+                <img src="{% static 'images/user.jpg' %}" alt="No Profile Picture" class="rounded-circle shadow-lg" style="width: 150px; height: 150px; object-fit: cover; border: 5px solid white;">
+            {% endif %}
+        </div>
+        <h1 class="font-weight-bold">{{ profile.business_name }}</h1>
+        <p class="lead">{{ profile.business_description }}</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <!-- Vendor Information Section -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Average Rating</h5>
+                    <div class="rating">
+                        {% for i in star_range %}
+                            {% if i <= average_rating %}
+                                <i class="fas fa-star text-warning"></i>
+                            {% else %}
+                                <i class="far fa-star text-muted"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Vendor Information</h5>
+                    <p><strong>Owner's Name:</strong> {{ profile.name }}</p>
+                    <p><strong>Username:</strong> {{ profile.username }}</p>
+                    <p><strong>City:</strong> {{ profile.city }}</p>
+                    <p><strong>Email:</strong> {{ profile.email }}</p>
+                    <p><strong>Phone:</strong> {{ profile.phone_number }}</p>
+                    <p><strong>Joined:</strong> {{ profile.date_created|date:"M d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call-to-Action Buttons -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <a href="{% url 'vendor-profile-form' %}" class="btn btn-primary btn-block">Edit Profile</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'services:add-product' %}" class="btn btn-success btn-block">Upload Product</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'services:vendor-products' %}" class="btn btn-info btn-block">View Products</a>
+        </div>
+    </div>
+
+    <!-- Orders Section -->
+    <div class="card shadow-sm mb-5">
+        <div class="card-body">
+            <h3 class="card-title text-center">Orders</h3>
+            {% if order_items %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_items %}
+                            <tr>
+                                <td>{{ item.order.id }}</td>
+                                <td>{{ item.order.user.username }}</td>
+                                <td>{{ item.product.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>${{ item.total_price }}</td>
+                                <td>
+                                    <a href="{% url 'checkouts:order-detail' item.order.id %}" class="btn btn-outline-info btn-sm">View</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="text-muted text-center">No orders placed yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Delete Account Section -->
+    <div class="text-center">
+        <a href="{% url 'delete-vendor-account' %}" class="btn btn-danger">Delete Account</a>
+    </div>    
+</div>
+{% endblock %}

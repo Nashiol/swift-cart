@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded">
+                <div class="card-body">
+                    <!-- Title for the form -->
+                    <h2 class="text-center mb-4">Update Your Profile</h2>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Display form fields -->
+                        <div class="mb-3">
+                            {{ form.as_p }}
+                        </div>
+
+                        <!-- Current Profile Picture Display (only if a profile picture exists) -->
+                        {% if user.profile_picture %}
+                            <div class="mt-3 text-center">
+                                <label>Current Profile Picture</label>
+                                <img src="{{ vendor.profile_picture.url }}" style="width: 150px; height: 150px; object-fit: cover;" alt="Vendor Profile">
+                            </div>
+                        {% endif %}
+
+                        <div class="mb-3">
+                            <label for="id_description" class="form-label"></label>
+                            {{ form.description }}
+                        </div>
+                        
+
+                        <!-- Submit Button -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-grey btn-lg w-100">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .btn-grey {
+        background-color: #6c757d; /* Grey background */
+        border: none;
+        color: white;
+    }
+
+    .btn-grey:hover {
+        background-color: #5a6368;
+    }
+
+    .form-control {
+        border-radius: 6px;
+        padding: 0.75rem;
+        border: 1px solid #6c757d; /* Grey border */
+    }
+
+    .form-label {
+        font-weight: 500;
+    }
+
+    /* Customize the profile picture display */
+    .rounded-circle {
+        object-fit: cover;
+    }
+    /* Vendor profile picture styling */
+    .profile-image {
+        width: 150px; /* Set the desired width */
+        height: 150px; /* Set the desired height */
+        object-fit: cover; /* Maintain aspect ratio without distortion */
+        border-radius: 50%; /* Makes the image circular */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    }
+
+</style>
+
+{% endblock %}

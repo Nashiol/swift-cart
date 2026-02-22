@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container my-5">
+    <h2 class="text-center mb-4 display-4 text-primary font-weight-bold">Search Results</h2>
+
+    <!-- Display Search Query in a Centered and Stylized Paragraph -->
+    <div class="text-center mb-5">
+      <p class="lead"><strong>Search for:</strong> "<span class="text-info">{{ query }}</span>"</p>
+    </div>
+
+    {% if products %}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">  <!-- 4 items per row on large screens -->
+        {% for product in products %}
+          <div class="col">
+            <a href="{% url 'services:product-detail' product.id %}" class="text-decoration-none" style="text-decoration: none; color: inherit;">
+              <div class="card shadow-lg border-light rounded d-flex flex-column justify-content-between text-center">
+                <!-- Display Product Images (First Image or Placeholder) -->
+                <div id="carousel-{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                    {% if product.images.all %}
+                      {% for image in product.images.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                          <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ product.name }}" style="height: 250px; object-fit: cover;">
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      <div class="carousel-item active">
+                        <img src="{% static 'images/placeholder.jpg' %}" class="d-block w-100" alt="Placeholder" style="height: 250px; object-fit: cover;">
+                      </div>
+                    {% endif %}
+                  </div>
+                  <!-- Carousel Controls -->
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ product.id }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ product.id }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+
+                <!-- Product Name -->
+                <h5 class="card-title mt-3">{{ product.name }}</h5>
+
+                <!-- Product Description (Truncated) -->
+                <p class="card-text text-muted" style="font-size: 0.95rem; min-height: 70px;">{{ product.description|truncatewords:20 }}</p>
+
+                <!-- Product Price -->
+                <p class="h5 text-success"><strong>Price:</strong> ${{ product.price }}</p>
+
+                <!-- Product Category -->
+                {% if product.category %}
+                  <p class="small text-secondary"><strong>Category:</strong> {{ product.category.name }}</p>
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center text-muted">No products found for your search.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <style>
+    /* Card Styles */
+    .card {
+      border: none;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-inner {
+      border-radius: 10px;
+    }
+
+    .carousel-item img {
+      border-radius: 10px;
+      height: 250px;  /* Ensure consistent image height */
+      object-fit: cover;
+    }
+
+    /* Text Alignment */
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .card-text {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .h5 {
+      font-size: 1.25rem;
+      color: #28a745;  /* Green color for price */
+    }
+
+    .btn {
+      border-radius: 25px;
+      padding: 8px 20px;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    .btn-outline-secondary {
+      border-color: #6c757d;
+      color: #6c757d;
+    }
+
+    .btn-outline-secondary:hover {
+      background-color: #6c757d;
+      color: white;
+    }
+  </style>
+{% endblock %}

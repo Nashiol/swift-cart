@@ -1,0 +1,77 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(to right, #1e3c72, #2a5298);">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold" href="{% url 'services:home' %}" style="font-size: 1.5rem; color: #f8f9fa;">
+      <i class="fas fa-shopping-cart"></i> Swift-Cart
+    </a>
+
+    <!-- Toggler button for hamburger menu -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content for the navbar -->
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Left-aligned links -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-light fw-bold" href="{% url 'services:home' %}">
+            Home <span class="sr-only">(current)</span>
+          </a>
+        </li>
+          
+        {% if not request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'signup' %}">Signup</a>
+          </li>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            {% if request.user.user_type == 'CUSTOMER' %}
+              <a href="{% url 'customer-dashboard' %}" class="nav-link text-light">{{ request.user.customer_profile.name }}</a>
+            {% elif request.user.user_type == 'VENDOR' %}
+              <a href="{% url 'vendor-profile' %}" class="nav-link text-light">{{ request.user.vendor_profile.name }}</a>
+            {% endif %}
+          </li>
+
+          <!-- Cart Link -->
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'checkouts:view-cart' %}">
+              <i class="fas fa-shopping-cart"></i> Cart 
+              {% if cart_item_count > 0 %}
+                <span class="badge bg-warning text-dark">{{ cart_item_count }}</span>
+              {% endif %}
+            </a>
+          </li>
+
+          <!-- Wishlist Link -->
+          <li class="nav-item">
+            <a class="nav-link text-light" href="{% url 'checkouts:wishlist' %}">
+              <i class="fas fa-heart"></i> Wishlist
+              {% if wishlist_item_count > 0 %}
+                <span class="badge bg-danger">{{ wishlist_item_count }}</span>
+              {% endif %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link text-light"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="{% url 'login' %}" class="nav-link text-light"><i class="fas fa-sign-in-alt"></i> Login</a>
+          </li>
+        {% endif %}
+      </ul>
+
+      <!-- Search Form -->
+      <form method="GET" action="{% url 'services:search' %}" class="d-flex">
+        <input class="form-control me-2" type="text" name="query" value="{{ request.GET.query }}" placeholder="Search products" aria-label="Search" style="border-radius: 20px; border: none;">
+        <button class="btn btn-light" type="submit" style="background-color: #2a5298; color: #f8f9fa; border-radius: 20px;">Search</button>
+    </form>    
+    </div>
+  </div>
+</nav>

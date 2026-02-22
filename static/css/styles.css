@@ -1,0 +1,10 @@
+.product-name {
+    color: black;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-price {
+    color: green;
+}

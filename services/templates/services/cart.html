@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Cart</h2>
+<div class="cart-items">
+    {% for item in cart_items %}
+    <div class="cart-item">
+        <p>{{ item.product.name }} (x{{ item.quantity }})</p>
+        <p>Price: ${{ item.product.price }}</p>
+        
+        <!-- Remove Item Button -->
+        <form action="{% url 'checkouts:remove-from-cart' product_id=item.product.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+        </form>
+    </div>
+    {% empty %}
+    <p>Your cart is empty.</p>
+    {% endfor %}
+</div>
+
+<!-- Checkout Button -->
+{% if cart_items %}
+<a href="{% url 'checkouts:checkout' %}" class="btn btn-success">Proceed to Checkout</a>
+{% endif %}
+
+{% endblock %}

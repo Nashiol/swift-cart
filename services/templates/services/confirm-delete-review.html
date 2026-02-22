@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>Are you sure you want to delete your review?</h3>
+    <div class="review-item border rounded p-4 shadow-sm">
+        <div class="review-header d-flex justify-content-between align-items-center">
+            <strong class="h5">{{ review.customer.username }}</strong>
+            <span class="text-muted">{{ review.created_at|date:"F j, Y" }}</span>
+        </div>
+        <div class="review-body mt-3">
+            <p>Rating: 
+                {% for i in filled_stars %}
+                    <span class="star text-warning">&#9733;</span> <!-- Filled star -->
+                {% endfor %}
+                {% for i in empty_stars %}
+                    <span class="star text-muted">&#9734;</span> <!-- Empty star -->
+                {% endfor %}
+            </p>
+            <p>{{ review.comment }}</p>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, delete this review</button>
+        </form>
+        <a href="{% url 'services:public-business-profile' vendor_id=review.vendor.id %}" class="btn btn-secondary ml-2">Cancel</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+<div class="profile-img mb-3 text-center">
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle" style="width: 160px; height: 160px; object-fit: cover; border: 4px solid #ddd; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    {% else %}
+        <img src="{% static 'images/user.jpg' %}" alt="No Profile Picture" class="rounded-circle" style="width: 160px; height: 160px; object-fit: cover; border: 4px solid #ddd; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    {% endif %}
+</div>
+
+
+
+<a href="{% url 'checkouts:order-history' %}" class="btn btn-outline-info">View Orders</a>

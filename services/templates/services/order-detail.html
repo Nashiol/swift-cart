@@ -1,0 +1,27 @@
+<!-- order_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="order-detail">
+        <h1>Order Details</h1>
+
+        <div>
+            <p><strong>Order ID:</strong> {{ order.id }}</p>
+            <p><strong>Ordered At:</strong> {{ order.ordered_at }}</p>
+            <p><strong>Total Price:</strong> {{ order.total_price }}</p>
+            
+            <h2>Items in the Order</h2>
+            <ul>
+                {% for item in order.items.all %}
+                    <li>
+                        <p><strong>Product:</strong> {{ item.product.name }}</p>
+                        <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+                        <p><strong>Price:</strong> {{ item.price }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <a href="{% url 'services:update-order-status' order.id %}">Update Order Status</a>
+        </div>
+    </div>
+{% endblock %}

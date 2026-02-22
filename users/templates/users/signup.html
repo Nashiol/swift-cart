@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+  /* Font Imports */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@400;600&display=swap');
+
+  /* Body and general typography styling */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+  }
+
+  h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: #555;
+  }
+
+  /* Center the container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Card Styling */
+  .card {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Image Styling */
+  .card-img-top {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-top: 30px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Card Body Styling */
+  .card-body {
+    padding: 30px;
+    text-align: center;
+    background-color: #2f2f2f; /* Dark grey background */
+    color: #fff;
+  }
+
+  .card-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #fff;
+  }
+
+  .card-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    margin: 20px 0;
+    color: #f9f9f9;
+  }
+
+  /* Button Styling */
+  .btn-lg {
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn-primary {
+    background-color: #e74c3c;
+    border-color: #e74c3c;
+  }
+
+  .btn-primary:hover {
+    background-color: #c0392b;
+    border-color: #c0392b;
+    transform: scale(1.05);
+  }
+
+  .btn-secondary {
+    background-color: #3498db;
+    border-color: #3498db;
+  }
+
+  .btn-secondary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    transform: scale(1.05);
+  }
+
+  /* Responsive adjustments */
+  .mb-4 {
+    margin-bottom: 2rem;
+  }
+
+  .mb-3 {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Hover effect and text animations */
+  .card:hover .card-title {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  /* Space between cards */
+  .row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .col-md-5 {
+    width: 45%;
+    transition: transform 0.3s ease;
+  }
+
+  .col-md-5:hover {
+    transform: scale(1.05);
+  }
+
+  /* For smaller screens, adjust card width */
+  @media (max-width: 768px) {
+    .col-md-5 {
+      width: 90%;
+    }
+  }
+
+</style>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Choose Your Role and Sign Up</h2>
+  <p class="text-center mb-4">Join Swift Cart and start your journey today</p>
+  
+  <div class="row">
+    <!-- Vendor Sign Up -->
+    <div class="col-md-5 mb-4">
+      <div class="card shadow-lg">
+        <img src="{% static 'images/vendor.jpg' %}" class="card-img-top mx-auto d-block" alt="Vendor Icon">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Sign Up as Vendor</h5>
+          <p class="card-text">As a vendor, you'll be able to showcase your products to a wide audience, manage your inventory, and grow your online business.</p>
+          <p class="card-text">Start your own store today and connect with customers who are looking for what you offer!</p>
+          <a href="{% url 'vendor-signup' %}" class="btn btn-primary btn-lg px-4 py-2">Become a Vendor</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Sign Up -->
+    <div class="col-md-5 mb-4">
+      <div class="card shadow-lg">
+        <img src="{% static 'images/customer.jpg' %}" class="card-img-top mx-auto d-block" alt="Customer Icon">
+        <div class="card-body">
+          <h5 class="card-title mb-3">Sign Up as Customer</h5>
+          <p class="card-text">As a customer, you can explore a variety of products from different vendors and enjoy personalized shopping experiences.</p>
+          <p class="card-text">Find great deals, shop effortlessly, and track your orders all in one place. Join today!</p>
+          <a href="{% url 'customer-signup' %}" class="btn btn-secondary btn-lg px-4 py-2">Become a Customer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

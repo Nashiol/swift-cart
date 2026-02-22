@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-header py-5 text-center text-white" style="background: linear-gradient(135deg, #00c6ff, #0072ff);">
+    <div class="container">
+        <h1 class="font-weight-bold">{{ profile.name }}</h1>
+        <p class="text-uppercase">{{ profile.user.username }}</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <!-- Customer Information Section -->
+    <div class="row mb-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Customer Information</h5>
+                    <p><strong>Email:</strong> {{ profile.email }}</p>
+                    <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+                    <p><strong>Join Date:</strong> {{ profile.date_created|date:"M d, Y" }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call-to-Action Buttons -->
+    <div class="row text-center mb-4">
+        <div class="col-md-6 offset-md-3">
+            <a href="{% url 'customer-dashboard-update' %}" class="btn btn-primary btn-block">Update Profile</a>
+        </div>
+    </div>
+
+    <!-- Wishlist and Order History -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Wishlist</h5>
+                    <a href="{% url 'checkouts:wishlist' %}" class="btn btn-outline-info">View Wishlist</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Order History</h5>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Account Section -->
+    <div class="text-center">
+        <a href="{% url 'delete-customer-account' %}" class="btn btn-danger">Delete Account</a>
+    </div>    
+</div>
+{% endblock %}

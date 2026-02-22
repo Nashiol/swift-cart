@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Button Styling */
+    .btn-outline-primary:hover, 
+    .btn-outline-primary.active {
+        background-color: #2a5298;
+        color: #fff;
+        border-color: #2a5298;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Dropdown Item Styling */
+    .dropdown-item:hover {
+        background-color: #2a5298;
+        color: white;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    /* Shadow for Buttons */
+    .btn {
+        transition: box-shadow 0.2s ease-in-out;
+    }
+    .btn:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+<div class="container mt-4">
+    <!-- Centered Heading -->
+    <div class="text-center mb-4">
+        <h2 class="display-4" style="font-weight: bold; color: #343a40;">Browse Products</h2>
+        <p class="lead text-muted">Discover amazing items from a variety of vendors</p>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="text-center mb-4">
+        <h5 class="fw-bold mb-3">Explore Categories</h5>
+        <div class="d-flex flex-wrap justify-content-center">
+            <!-- "All" Category -->
+            <a href="{% url 'services:product-list' %}" 
+               class="btn btn-primary rounded-pill m-2 px-3 shadow-sm {% if not selected_category %}active{% endif %}">
+                <i class="fas fa-globe"></i> All
+            </a>
+    
+            <!-- Display Limited Categories -->
+            {% for category in categories|slice:":5" %}
+                <a href="?category={{ category.name }}" 
+                   class="btn btn-outline-primary rounded-pill m-2 px-3 shadow-sm {% if category.name == selected_category %}active{% endif %}">
+                    {{ category.name }}
+                </a>
+            {% endfor %}
+    
+            <!-- Dropdown for Additional Categories -->
+            {% if categories|length > 5 %}
+                <div class="dropdown m-2">
+                    <button class="btn btn-outline-primary rounded-pill shadow-sm px-3 dropdown-toggle" 
+                            type="button" 
+                            id="moreCategoriesDropdown" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                        More Categories
+                    </button>
+                    <ul class="dropdown-menu text-center shadow" aria-labelledby="moreCategoriesDropdown">
+                        {% for category in categories|slice:"5:" %}
+                            <li>
+                                <a class="dropdown-item {% if category.name == selected_category %}active{% endif %}" 
+                                   href="?category={{ category.name }}">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <a href="{% url 'services:product-detail' product.id %}" class="text-decoration-none" style="text-decoration: none; color: inherit;">
+                    <!-- Product Card -->
+                    <div class="card shadow-sm border rounded" style="border: 1px solid #dee2e6; background-color: #f8f9fa;">
+                        <!-- Carousel for Product Images -->
+                        <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% if product.images.exists %}
+                                    {% for image in product.images.all %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img src="{{ image.image.url }}" class="d-block w-100 rounded-top" alt="Product Image" style="height: 150px; object-fit: cover;">
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <!-- Display placeholder image if no images are available -->
+                                    <div class="carousel-item active">
+                                        <img src="{% static 'images/placeholder.jpg' %}" class="d-block w-100 rounded-top" alt="No Image Available" style="height: 150px; object-fit: cover;">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
+                                <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="card-body text-center">
+                            <p><strong>Price:</strong> ${{ product.price }}</p>
+                        </div>
+                    </div>
+                </a> 
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    function trackInteraction(action, entityId) {
+        fetch("{% url 'services:track-interaction' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                action: action,
+                entity_id: entityId
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Interaction tracked: ' + action);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+{% endblock %}

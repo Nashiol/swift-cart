@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Sign Up - Swift-cart
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center signup-form-container">
+    <!-- Customized Form Container -->
+    <div class="card shadow-lg p-5 rounded" style="max-width: 500px; width: 100%; border-top: 5px solid #333333; border-radius: 10px;">
+        <h2 class="text-center mb-4" style="color: #333333; font-family: 'Poppins', sans-serif; font-weight: bold;">Sign Up as a Vendor</h2>
+        
+        <form method="POST" action="{% url 'vendor-signup' %}">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                {{ form.as_p }}
+            </div>
+            
+            <div class="d-grid mt-4">
+                <input type="submit" class="btn btn-block" value="Sign Up" 
+                    style="background-color: #2a5298; color: white; font-weight: bold; padding: 12px; font-size: 16px; font-family: 'Poppins', sans-serif; border: none; border-radius: 5px; transition: background-color 0.3s;">
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Scoped styles for the signup form */
+    .signup-form-container {
+        background-color: #f9f9f9;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .signup-form-container .card {
+        background: #ffffff;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .signup-form-container .form-group label {
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .signup-form-container input[type="text"], 
+    .signup-form-container input[type="password"], 
+    .signup-form-container input[type="email"] {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 14px;
+        width: 100%;
+        margin-bottom: 15px;
+        font-family: 'Poppins', sans-serif;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .signup-form-container input[type="text"]:focus, 
+    .signup-form-container input[type="password"]:focus, 
+    .signup-form-container input[type="email"]:focus {
+        border-color: #2a5298;
+        outline: none;
+    }
+
+    .signup-form-container input[type="submit"]:hover {
+        background-color: #2a5298;
+    }
+
+    .signup-form-container h2 {
+        font-size: 28px;
+        line-height: 1.2;
+    }
+</style>
+{% endblock content %}

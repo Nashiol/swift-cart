@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h2 class="card-title text-center text-danger">Confirm Account Deletion</h2>
+            <p class="card-text text-center">
+                Are you sure you want to delete your customer account? 
+                <strong class="text-danger">This action cannot be undone.</strong>
+            </p>
+
+            <!-- Form for review and deletion -->
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group mt-4">
+                    <label for="review_text" class="form-label">Tell us why you're leaving (optional):</label>
+                    <textarea 
+                        name="review_text" 
+                        id="review_text" 
+                        class="form-control" 
+                        rows="4" 
+                        placeholder="Your feedback..." 
+                        aria-label="Feedback textarea"></textarea>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    <!-- Trigger Modal -->
+                    <button 
+                        type="button" 
+                        class="btn btn-danger me-2" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#confirmDeletionModal">
+                        Yes, Delete My Account
+                    </button>
+                    <a href="{% url 'customer-dashboard' %}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeletionModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal form to handle the actual account deletion -->
+            <form method="POST" action="{% url 'delete-customer-account' %}">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="modalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you absolutely sure you want to delete your account? 
+                    <strong>This action cannot be undone.</strong>
+                </div>
+                <input type="hidden" name="review_text" id="modal_review_text" value="">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Copy review text from the main form to the modal before submission
+    const mainForm = document.querySelector('form'); 
+    const reviewTextInput = mainForm.querySelector('#review_text');
+    const modalForm = document.querySelector('#confirmDeletionModal form');
+    const modalReviewTextInput = modalForm.querySelector('#modal_review_text');
+
+    modalForm.addEventListener('submit', function() {
+        modalReviewTextInput.value = reviewTextInput.value;
+    });
+</script>
+
+{% endblock %}

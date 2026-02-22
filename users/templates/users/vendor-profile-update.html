@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Update Your Profile</h2>
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Display form fields -->
+                        {{ form.as_p }}
+
+                        <!-- Current Profile Picture Display (only if a profile picture exists) -->
+                        {% if user.profile_picture %}
+                            <div class="mt-3">
+                                <label>Current Profile Picture</label>
+                                <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="mt-3 rounded-circle" style="width: 150px; height: 150px;">
+                            </div>
+                        {% endif %}
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

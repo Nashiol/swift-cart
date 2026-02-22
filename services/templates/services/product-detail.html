@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% if product.images.all %}
+                    {% for image in product.images.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ image.image.url }}" class="d-block w-100" alt="Product Image" style="max-height: 300px; object-fit: contain;">
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="carousel-item active">
+                        <img src="{% static 'images/placeholder.jpg' %}" class="d-block w-100" alt="Placeholder Image" style="max-height: 300px; object-fit: contain;">
+                    </div>
+                {% endif %}
+            </div>            
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev" style="background-color: rgba(0, 0, 0, 0.5);">
+                <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(100%);"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="next" style="background-color: rgba(0, 0, 0, 0.5);">
+                <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(100%);"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p><strong>Stock:</strong> {{ product.stock }}</p>
+            {% if product.category %}
+                  <p class="small text-secondary"><strong>Category:</strong> {{ product.category.name }}</p>
+                {% endif %}
+            <p class="card-text">
+                <small class="text-muted">
+                    Sold by: {{ product.vendor.business_name }} 
+                    ({{ product.vendor.city }})
+                </small>
+            </p>
+            <div class="d-flex justify-content-start gap-2">
+                <a href="{% url 'checkouts:add-to-cart' product.pk %}" class="btn btn-success">Add to Cart</a>
+                <a href="{% url 'checkouts:add_to_wishlist' product.id %}" class="btn btn-outline-success">Add to Wishlist</a>
+                <a href="{% url 'services:public-business-profile' product.vendor.id %}" class="btn btn-outline-success">Go to business profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

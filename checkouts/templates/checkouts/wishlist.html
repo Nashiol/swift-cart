@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Wishlist</h1>
+<ul>
+    {% for item in wishlist_items %}
+    <li>
+        {{ item.product.name }} - 
+        <a href="{% url 'checkouts:remove_from_wishlist' item.product.id %}" class="btn btn-danger">Remove</a>
+    </li>
+    
+    {% empty %}
+    <p>Your wishlist is empty</p>
+    {% endfor %}
+  
+</ul>
+{% endblock %}

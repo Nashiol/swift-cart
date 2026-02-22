@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Home - SwiftCart Marketplace
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="jumbotron text-center text-light py-5"
+    style="background: linear-gradient(135deg, #333333, #1a1a1a); border-radius: 20px;">
+    <div class="container">
+        <h1 class="display-3 font-weight-bold mb-4 animate__animated animate__fadeInUp"
+            style="font-family: 'Poppins', sans-serif;">Welcome to SwiftCart!</h1>
+        <p class="lead mb-4 animate__animated animate__fadeInUp"
+            style="animation-delay: 0.3s; font-family: 'Roboto', sans-serif;">
+            Explore a vast marketplace with products from top sellers. All you need, just a click away.
+        </p>
+        <a class="btn btn-light btn-lg px-4 py-2 rounded-pill shadow-sm animate__animated animate__fadeInUp"
+            href="{% url 'services:product-list' %}" role="button" style="animation-delay: 0.6s;">
+            Start Shopping
+        </a>
+    </div>
+</div>
+
+<!-- Additional CSS for Animations -->
+<style>
+    /* Add custom fonts to your project */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400&display=swap');
+
+    .animate__animated {
+        animation-duration: 1.5s;
+        animation-timing-function: ease-out;
+    }
+
+    .animate__fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<!-- Featured Products Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Featured Products For You</h2>
+    <div class="row row-cols-2 row-cols-sm-4 row-cols-md-4 g-4">
+        {% for featured in featured_products %}
+        <div class="col">
+            <!-- Entire Card is Wrapped in Anchor -->
+            <a href="{% url 'services:product-detail' featured.product.id %}" class="text-decoration-none"
+                style="text-decoration: none; color: inherit;">
+                <div class="card h-100">
+                    <!-- Bootstrap Carousel -->
+                    <div id="carousel-{{ forloop.counter }}" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% if featured.product.images.exists %}
+                            {% for image in featured.product.images.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ image.image.url }}" class="d-block w-100 img-fluid"
+                                    alt="{{ featured.product.name }} - Image" style="height: 150px; object-fit: cover;">
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/placeholder.jpg' %}" class="d-block w-100"
+                                    alt="No Image Available" style="height: 150px; object-fit: cover;">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <!-- Carousel Controls -->
+                        {% if featured.product.images.count > 1 %}
+                        <button class="carousel-control-prev" type="button"
+                            data-bs-target="#carousel-{{ forloop.counter }}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button"
+                            data-bs-target="#carousel-{{ forloop.counter }}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        {% endif %}
+                    </div>
+                    <!-- End of Carousel -->
+
+                    <div class="card-body text-center">
+                        <h5 class="card-title product-name">{{ featured.product.name }}</h5>
+                        <p class="card-text product-price">K{{ featured.product.price }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <p class="text-center">No featured products available at the moment.</p>
+        {% endfor %}
+    </div>
+</div>
+<!-- More Button -->
+<div class="text-center mt-4">
+    <a href="{% url 'services:product-list' %}" class="btn btn-outline-dark btn-lg">More Products</a>
+</div>
+</div>
+
+
+
+<!-- About Section with Slightly Darker Grey Hero and Rounded Corners -->
+<div class="hero-about text-center bg-light text-dark py-5 rounded">
+    <div class="container">
+        <h1 class="display-3 font-weight-bold mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0s;">
+            About Swift Cart</h1>
+        <p class="lead mb-4 animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+            Swift Cart seamlessly connects vendors and customers, making it easier to buy and sell a wide range of
+            products. Explore fantastic deals, shop with confidence, and start your journey today!
+        </p>
+        <a href="{% url 'services:about' %}"
+            class="btn btn-lg btn-success rounded-pill px-5 py-3 animate__animated animate__fadeInUp"
+            style="animation-delay: 0.6s;">Learn More</a>
+    </div>
+</div>
+
+<!-- Additional CSS for Animations and Styling -->
+<style>
+    .animate__animated {
+        animation-duration: 1.5s;
+        animation-timing-function: ease-out;
+    }
+
+    .animate__fadeInUp {
+        animation-name: fadeInUp;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* About Section Styling */
+    .hero-about {
+        background: linear-gradient(135deg, #e0e0e0, #c1c1c1);
+        /* Slightly darker grey gradient */
+    }
+
+    .hero-about .display-3 {
+        font-size: 3rem;
+        letter-spacing: 2px;
+        color: #333;
+        /* Dark text for About section */
+    }
+
+    .hero-about .lead {
+        font-size: 1.25rem;
+        color: #555;
+        /* Dark grey for the lead paragraph */
+    }
+
+    .hero-about .btn-success {
+        background-color: #343835;
+        /* Green button color */
+        border: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .hero-about .btn-success:hover {
+        background-color: #000000;
+        /* Darker green on hover */
+        transform: translateY(-5px);
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+</style>
+
+<!-- Newsletter Signup Section -->
+<div class="container mt-5 text-center">
+    <h2>Stay Updated</h2>
+    <p>Sign up for our newsletter to get the latest deals and products delivered to your inbox.</p>
+    <form method="POST" action="{% url 'services:newsletter-signup' %}" class="form-inline justify-content-center">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+</div>
+
+
+<!-- Footer Section -->
+<div class="text-center mt-5 py-4 bg-light">
+    <p>&copy; {{ current_year }} Swift Cart. All Rights Reserved.</p>
+</div>
+
+{% endblock %}

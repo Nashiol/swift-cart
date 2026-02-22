@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Update Order Status for Order #{{ order.id }}</h2>
+  
+  <p><strong>Customer:</strong> {{ order.user.username }}</p>
+  <p><strong>Total Price:</strong> ${{ order.total_price }}</p>
+  <p><strong>Current Status:</strong> {{ order.get_status_display }}</p>
+
+  <!-- Display any messages (success or error) -->
+  {% if messages %}
+    <div>
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Order status update form -->
+  <form method="POST">
+    {% csrf_token %}
+    <label for="status">Order Status:</label>
+    <select name="status" id="status">
+        <option value="Pending" {% if order.status == 'Pending' %}selected{% endif %}>Pending</option>
+        <option value="Shipped" {% if order.status == 'Shipped' %}selected{% endif %}>Shipped</option>
+        <option value="Delivered" {% if order.status == 'Delivered' %}selected{% endif %}>Delivered</option>
+        <option value="Canceled" {% if order.status == 'Canceled' %}selected{% endif %}>Canceled</option>
+    </select>
+    <button type="submit">Update Status</button>
+  </form>
+
+  <!-- Link to redirect back to order details page -->
+  <a href="{% url 'checkouts:order-detail' order.id %}">View Order Details</a>
+{% endblock %}

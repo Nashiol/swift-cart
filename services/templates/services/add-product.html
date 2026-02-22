@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Upload New Product</h2>
+                    
+                    <!-- Start Form -->
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Product Details -->
+                        <h4 class="mb-3">Product Details</h4>
+                        <div class="mb-3">
+                            {{ form.name.label_tag }}
+                            {{ form.name }}
+                            {{ form.name.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.description.label_tag }}
+                            {{ form.description }}
+                            {{ form.description.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.price.label_tag }}
+                            {{ form.price }}
+                            {{ form.price.errors }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.stock.label_tag }}
+                            {{ form.stock }}
+                            {{ form.stock.errors }}
+                        </div>
+
+                        <!-- Product Condition (Status) -->
+                        <h4 class="mb-3">Product Condition</h4>
+                        <div class="mb-3">
+                            {{ form.status.label_tag }}
+                            {{ form.status }}  <!-- Dropdown with classes applied in the form -->
+                            {{ form.status.errors }}
+                        </div>
+
+                        <!-- Category Selection -->
+                        <h4 class="mb-3">Select Product Category</h4>
+                        <div class="mb-3">
+                            {{ form.category.label_tag }}
+                            {{ form.category }}  <!-- This will have the 'form-select select2' classes -->
+                            {{ form.category.errors }}
+                        </div>
+
+                        <!-- Product Images -->
+                        <h4 class="mb-3">Upload Product Images</h4>
+                        {{ formset.management_form }}
+                        <div class="mb-3">
+                            {% for image_form in formset %}
+                                <div class="mb-2">
+                                    {{ image_form.as_p }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-success w-100">Upload Product</button>
+                    </form>
+                    <!-- End Form -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Select2 JS and CSS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+<script>
+    $(document).ready(function() {
+        // Apply Select2 to the category select field
+        $('.select2').select2();
+    });
+</script>
+{% endblock %}

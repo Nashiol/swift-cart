@@ -1,0 +1,83 @@
+<footer class="bg-dark text-light pt-5 pb-4">
+    <div class="container text-center text-md-left">
+        <div class="row text-center text-md-left">
+            <!-- About Section -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Swift Cart</h5>
+                <p>Discover a wide range of products tailored to meet all your needs. Shop with ease and confidence on Swift Cart.</p>
+            </div>
+
+            <!-- Links Section -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Quick Links</h5>
+                <p><a href="{% url 'services:home' %}" class="text-light hover-text">Home</a></p>
+                <p><a href="{% url 'services:about' %}" class="text-light hover-text">About Us</a></p>
+                <p><a href="{% url 'services:service' %}" class="text-light hover-text">Services</a></p>
+                <p><a href="{% url 'services:contact' %}" class="text-light hover-text">Contact</a></p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Contact</h5>
+                <p><i class="fas fa-home mr-3"></i> 123 Swift Lane, Lusaka, Zambia</p>
+                <p><i class="fas fa-envelope mr-3"></i> support@swiftcart.com</p>
+                <p><i class="fas fa-phone mr-3"></i> +260 974 396 754</p>
+            </div>
+
+            <!-- Social Media Section -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h5 class="text-uppercase mb-4 font-weight-bold">Follow Us</h5>
+                <a href="#" class="text-light social-icon d-block mb-2"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#" class="text-light social-icon d-block mb-2"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#" class="text-light social-icon d-block mb-2"><i class="fab fa-instagram"></i> Instagram</a>
+            </div>            
+        </div>
+
+        <!-- Copyright -->
+        <div class="row d-flex justify-content-center mt-3">
+            <div class="col-md-8 text-center">
+                <p class="text-light">© 2025 Swift Cart. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Additional CSS for Styling -->
+<style>
+    .hover-text {
+        transition: color 0.3s ease;
+    }
+
+    .hover-text:hover {
+        color: #ffcc00; /* Yellow color on hover */
+    }
+
+    .social-icon {
+        display: inline-block;
+        font-size: 18px;
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .social-icon:hover {
+        color: #ffcc00; /* Yellow color on hover */
+        transform: scale(1.1); /* Slight zoom effect */
+    }
+
+    footer {
+        background-color: #333333;
+        border-top: 2px solid #ffcc00; /* Add a golden line at the top of the footer */
+    }
+
+    footer .col-md-3, footer .col-lg-3, footer .col-xl-3 {
+        margin-bottom: 20px;
+    }
+
+    footer .text-uppercase {
+        letter-spacing: 2px;
+        font-weight: bold;
+    }
+
+    footer .container {
+        max-width: 1200px; /* Make the container a bit wider */
+    }
+</style>
