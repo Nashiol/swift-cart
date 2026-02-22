@@ -41,7 +41,6 @@
 ### General
 - **Role-Based Authentication** — Separate signup flows for vendors and customers with email-based login
 - **Featured Products** — Curated recommendations, trending items, and top sellers on the homepage
-- **Newsletter Subscription** — Stay updated with the latest deals
 - **Responsive Design** — Built with Bootstrap 5 for a seamless experience on all devices
 
 ---
