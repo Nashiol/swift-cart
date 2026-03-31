@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
+    # Jazzmin enhanced the customized Django admin UI theme.
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +56,46 @@ INSTALLED_APPS = [
     'checkouts',
     'haystack',
 ]
+
+# Jazzmin UI settings for admin branding/layout.
+JAZZMIN_SETTINGS = {
+    "site_title": "Swift-Cart Admin",
+    "site_header": "Swift-Cart",
+    "site_brand": "Swift-Cart",
+    "welcome_sign": "Welcome to Swift-Cart Admin",
+    "copyright": "Swift-Cart © 2026",
+    "search_model": "users.CustomUser",
+
+    # UI customization
+    "show_ui_builder": True,
+    # "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "hide_models": [],
+
+    # Top menu links
+    "topmenu_links": [
+        {"name": "Home",  "url": "/", "permissions": ["auth.view_user"]},
+        {"name": "Support", "url": "https://example.com", "new_window": True},
+        {"name": "Users", "url": "admin:auth_user_changelist", "permissions": ["auth.view_user"]}
+    ],
+
+    # Icons matching Swift-Cart theme
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "users": "fas fa-user",
+        "checkouts": "fas fa-shopping-cart",
+        "services": "fas fa-cogs",
+        "haystack": "fas fa-search"
+    },
+
+    # Theme tweaks to match the Swift-Cart admin style
+    "default_icon_containers": "fas fa-circle",  # Rounded icons
+    "related_modal_active": True,
+    # Local override file for small layout fixes (sidebar/content spacing, etc.).
+    "custom_css": "css/admin-fixes.css",
+    "custom_js": None,
+}
 
 HAYSTACK_CONNECTIONS = {
     'default': {
