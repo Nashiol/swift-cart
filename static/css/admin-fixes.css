@@ -1,0 +1,13 @@
+/* Keep admin content aligned to sidebar; remove visible gutter. */
+body:not(.layout-top-nav) .content-wrapper,
+body:not(.layout-top-nav) .main-header,
+body:not(.layout-top-nav) .main-footer {
+    margin-left: 250px;
+}
+
+/* Match collapsed sidebar spacing as well. */
+body:not(.layout-top-nav).sidebar-collapse .content-wrapper,
+body:not(.layout-top-nav).sidebar-collapse .main-header,
+body:not(.layout-top-nav).sidebar-collapse .main-footer {
+    margin-left: 4.6rem;
+}
