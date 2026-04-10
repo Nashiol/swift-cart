@@ -18,6 +18,7 @@ django-bootstrap5==24.3
 django-channels==0.7.0
 django-haystack==3.3.0
 django-image-cropping==1.7
+django-jazzmin==3.0.4
 djangorestframework==3.15.2
 easy-thumbnails==2.10
 idna==3.10

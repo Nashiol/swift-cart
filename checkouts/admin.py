@@ -8,6 +8,6 @@ admin.site.register(OrderItem)
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('id', 'customer', 'total_amount', 'status', 'created_at')
-    search_fields = ('customer__email', 'id')
-    list_filter = ('status', 'created_at')
+    list_display = ('id', 'user', 'total_price', 'status', 'ordered_at')
+    search_fields = ('user__email', 'id')
+    list_filter = ('status', 'ordered_at')
