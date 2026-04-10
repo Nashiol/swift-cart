@@ -23,7 +23,13 @@ media/
 # Whoosh search index
 whoosh_index/
 
+<<<<<<< HEAD
 #Virtual env
 venv/
+=======
+# Local env + static build outputs
+venv/
+staticfiles/
+>>>>>>> 074de78d96146cd682131630e23e222c2ff64635
 
 
