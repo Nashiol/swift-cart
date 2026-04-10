@@ -23,4 +23,7 @@ media/
 # Whoosh search index
 whoosh_index/
 
+#Virtual env
+venv/
+
 
